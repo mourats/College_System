@@ -1,14 +1,17 @@
 package controllers;
 
+import dao.AdminDAO;
 import entities.Admin;
 import entities.Login;
 
 public class AdminDashboard {
 	
+	private AdminDAO adminDao;
 	private Admin admin;
 	
 	public AdminDashboard(Login login) {
 		this.admin = new Admin(login);
+		this.adminDao = new AdminDAO();
 	}
 
 	public String getAllCourses() {

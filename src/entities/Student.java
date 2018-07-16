@@ -8,6 +8,9 @@ public class Student {
 	private String nationality;
 	private Login login;
 
+	public void setLogin(Login login) {
+		this.login = login;
+	}
 	public Student(int id, String name, String address, String nationality) {
 		
 		this.setId(id);
@@ -17,14 +20,8 @@ public class Student {
 		//generate login
 		//this.login = login;
 	}
-	
-	public Student(int id, String name, String address, String nationality, String login_name, String password) {
-		
-		this.setId(id);
-		this.setName(name);
-		this.setAddress(address);
-		this.setNationality(nationality);
-		this.login = new Login(login_name, password);
+	public Student() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

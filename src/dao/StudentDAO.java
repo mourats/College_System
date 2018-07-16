@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -17,20 +19,97 @@ public class StudentDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public void insert(Student student) throws SQLException {
+	public int insert(Student student) throws SQLException {
 		String sql = "INSERT INTO TB_STUDENT " + "(NAME,ADDRESS,NATIONALITY,NAME_LOGIN,PASSWORD)"
 				+ " VALUES (?,?,?,?,?);";
 
 		try {
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
-			// seta os valores
 			stmt.setString(1, student.getName());
 			stmt.setString(2, student.getAddress());
 			stmt.setString(3, student.getNationality());
 			stmt.setString(4, student.getLogin().getLogin_name());
 			stmt.setString(5, student.getLogin().getPassword());
-			// executa
+
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return this.loginStudent(student.getLogin()).getId();
+
+	}
+
+	public Student getStudentById(int id) {
+
+		PreparedStatement stmt;
+
+		try {
+			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT WHERE ID = " + id);
+
+			ResultSet response = stmt.executeQuery();
+
+			if (response.next()) {
+				return makeStudent(response);
+			}
+
+			response.close();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private Student makeStudent(ResultSet response) throws SQLException {
+
+		Student student = new Student();
+		student.setId(response.getInt("ID"));
+		student.setName(response.getString("NAME"));
+		student.setAddress(response.getString("ADDRESS"));
+		student.setNationality(response.getString("NATIONALITY"));
+		student.setLogin(new Login(response.getString("NAME_LOGIN"), response.getString("PASSWORD")));
+
+		return student;
+	}
+
+	public Student loginStudent(Login login) {
+
+		PreparedStatement stmt;
+		try {
+			stmt = (PreparedStatement) this.connection.prepareStatement("Select * FROM TB_STUDENT WHERE NAME_LOGIN = '"
+					+ login.getLogin_name() + "' and PASSWORD = '" + login.getPassword() + "'");
+
+			ResultSet response = stmt.executeQuery();
+
+			if (response.next()) {
+				return makeStudent(response);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public void updateStudent(Student student) {
+
+		String sql = "UPDATE TB_STUDENT SET " + "NAME=?, ADDRESS=?, NATIONALITY=?, NAME_LOGIN=?, PASSWORD=?"
+				+ " WHERE ID =" + student.getId() + ";";
+
+		try {
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+			stmt.setString(1, student.getName());
+			stmt.setString(2, student.getAddress());
+			stmt.setString(3, student.getNationality());
+			stmt.setString(4, student.getLogin().getLogin_name());
+			stmt.setString(5, student.getLogin().getPassword());
+
 			stmt.execute();
 			stmt.close();
 
@@ -40,41 +119,39 @@ public class StudentDAO {
 
 	}
 
-	private Student get(int id) throws SQLException {
+	public void deleteStudent(int id) {
 
-		PreparedStatement stmt = (PreparedStatement) this.connection
-				.prepareStatement("SELECT * FROM TB_STUDENT WHERE ID = " + id);
+		String sql = "DELETE FROM TB_STUDENT" + " WHERE ID =" + id + ";";
 
-		ResultSet response = stmt.executeQuery();
-		Student student = null;
-		String address, nationality, name, name_login, password;
+		try {
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 
-		if (response.next()) {
-			name = response.getString("NAME");
-			address = response.getString("ADDRESS");
-			nationality = response.getString("NATIONALITY");
-			name_login = response.getString("NAME_LOGIN");
-			password = response.getString("PASSWORD");
+			stmt.execute();
+			stmt.close();
 
-			student = new Student(id, name, address, nationality, name_login, password);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
-
-		response.close();
-		stmt.close();
-
-		return student;
-
 	}
 
-	public Student LoginCliente(Login login) throws SQLException {
-		PreparedStatement stmt = (PreparedStatement) this.connection
-				.prepareStatement("Select ID from TB_STUDENT WHERE NAME_LOGIN = '" + login.getLogin_name()
-						+ "' and PASSWORD = '" + login.getPassword() + "'");
+	public List<Student> getAllStudents() {
 
-		ResultSet response = stmt.executeQuery();
+		PreparedStatement stmt;
+		try {
+			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT");
 
-		if (response.next()) {
-			return this.get(response.getInt("ID"));
+			ResultSet response = stmt.executeQuery();
+
+			List<Student> result = new ArrayList<Student>();
+
+			while (response.next()) {
+				result.add(makeStudent(response));
+			}
+
+			return result;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		return null;

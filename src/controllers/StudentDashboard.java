@@ -1,9 +1,21 @@
 package controllers;
 
+import dao.StudentDAO;
+import entities.Login;
+import entities.Student;
+
 public class StudentDashboard {
 	
-	StudentController studentController;
-	CourseController courseController;
+	private StudentDAO studentDao;
+	private Student student;
+	
+	public StudentDashboard(Login login) {
+		
+		this.studentDao = new StudentDAO();
+		
+		this.student = studentDao.loginStudent(login);
+	}
+	
 
 	public String getStudentInformations() {
 		return "";
