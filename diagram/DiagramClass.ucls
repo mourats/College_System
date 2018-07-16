@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="dao.AdminDAO" project="College_System" 
-    file="/College_System/src/dao/AdminDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="dao.LoginDAO" project="College_System" 
+    file="/College_System/src/dao/LoginDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="77" width="89" x="674" y="103"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

@@ -11,17 +11,16 @@ public class Student {
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-	public Student(int id, String name, String address, String nationality) {
-		
-		this.setId(id);
+
+	public Student(String name, String address, String nationality, Login login) {
 		this.setName(name);
 		this.setAddress(address);
 		this.setNationality(nationality);
-		//generate login
-		//this.login = login;
+		this.login = login;
 	}
+
 	public Student() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public int getId() {

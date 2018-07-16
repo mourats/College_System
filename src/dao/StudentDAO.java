@@ -19,7 +19,7 @@ public class StudentDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public int insert(Student student) throws SQLException {
+	public int insert(Student student) {
 		String sql = "INSERT INTO TB_STUDENT " + "(NAME,ADDRESS,NATIONALITY,NAME_LOGIN,PASSWORD)"
 				+ " VALUES (?,?,?,?,?);";
 
@@ -81,7 +81,7 @@ public class StudentDAO {
 
 		PreparedStatement stmt;
 		try {
-			stmt = (PreparedStatement) this.connection.prepareStatement("Select * FROM TB_STUDENT WHERE NAME_LOGIN = '"
+			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT WHERE NAME_LOGIN = '"
 					+ login.getLogin_name() + "' and PASSWORD = '" + login.getPassword() + "'");
 
 			ResultSet response = stmt.executeQuery();
@@ -134,7 +134,7 @@ public class StudentDAO {
 		}
 	}
 
-	public List<Student> getAllStudents() {
+	public List<String> getAllStudents() {
 
 		PreparedStatement stmt;
 		try {
@@ -142,11 +142,13 @@ public class StudentDAO {
 
 			ResultSet response = stmt.executeQuery();
 
-			List<Student> result = new ArrayList<Student>();
+			List<String> result = new ArrayList<String>();
 
 			while (response.next()) {
-				result.add(makeStudent(response));
+				result.add(makeStudent(response).toString());
 			}
+			response.close();
+			stmt.close();
 
 			return result;
 
@@ -157,8 +159,51 @@ public class StudentDAO {
 		return null;
 	}
 
+	public void setStudentInCourse(int idStudent, int idCourse) {
+
+		String sql = "UPDATE TB_STUDENT SET " + "COURSE= " + idCourse + " WHERE ID =" + idStudent + ";";
+		try {
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
 	public void disconnect() throws SQLException {
 		this.connection.close();
+	}
+
+	public List<String> getStudentsInCourse(int idCourse) {
+
+		PreparedStatement stmt;
+
+		try {
+			stmt = (PreparedStatement) this.connection
+					.prepareStatement("SELECT * FROM TB_STUDENT WHERE COURSE = " + idCourse);
+
+			ResultSet response = stmt.executeQuery();
+
+			List<String> result = new ArrayList<String>();
+
+			while (response.next()) {
+				result.add(makeStudent(response).toString());
+			}
+			
+			response.close();
+			stmt.close();
+
+			return result;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 }

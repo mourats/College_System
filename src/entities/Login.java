@@ -23,4 +23,8 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public static Login generateLOGIN(String name) {
+		return new Login(name, name);
+	}
 }
