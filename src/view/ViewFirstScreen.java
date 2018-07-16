@@ -44,6 +44,11 @@ public class ViewFirstScreen extends JFrame {
 		JButton btnStudent = new JButton("Student");
 		btnStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int x = getX();
+				int y = getY();
+				ViewLoginStudent viewLogin = new ViewLoginStudent(x,y);
+				dispose();
+				viewLogin.setVisible(true);
 				
 			}
 		});

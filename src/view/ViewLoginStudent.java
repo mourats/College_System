@@ -18,7 +18,7 @@ public class ViewLoginStudent extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewLoginStudent frame = new ViewLoginStudent();
+					ViewLoginStudent frame = new ViewLoginStudent(100,100);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,9 +30,9 @@ public class ViewLoginStudent extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewLoginStudent() {
+	public ViewLoginStudent(int x, int y) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(x, y, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
