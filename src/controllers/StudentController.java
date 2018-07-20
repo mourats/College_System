@@ -4,12 +4,12 @@ import dao.StudentDAO;
 import entities.Login;
 import entities.Student;
 
-public class StudentDashboard {
+public class StudentController {
 	
 	private StudentDAO studentDao;
 	private Student student;
 	
-	public StudentDashboard(Login login) {
+	public StudentController(Login login) {
 		
 		this.studentDao = new StudentDAO();
 		

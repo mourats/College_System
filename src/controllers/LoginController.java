@@ -17,14 +17,14 @@ public class LoginController {
 			throw new RuntimeException();
 	}
 	
-	public StudentDashboard loginStudent(String name_login, String password) {
+	public StudentController loginStudent(String name_login, String password) {
 		
 		Login login = new Login(name_login, password);
 		LoginDAO loginDao = new LoginDAO();
 		boolean existLogin = loginDao.loginStudent(login);
 		
 		if(existLogin)
-			return new StudentDashboard(login);
+			return new StudentController(login);
 		else
 			throw new RuntimeException();
 	}
