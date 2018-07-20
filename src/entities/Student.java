@@ -6,17 +6,12 @@ public class Student {
 	private String name;
 	private String address;
 	private String nationality;
-	private Login login;
+	private int idCourse;
 
-	public void setLogin(Login login) {
-		this.login = login;
-	}
-
-	public Student(String name, String address, String nationality, Login login) {
+	public Student(String name, String address, String nationality) {
 		this.setName(name);
 		this.setAddress(address);
 		this.setNationality(nationality);
-		this.login = login;
 	}
 
 	public Student() {
@@ -47,15 +42,21 @@ public class Student {
 		this.nationality = nationality;
 	}
 
-	public Login getLogin() {
-		return login;
-	}
-
 	public String getAddress() {
 		return address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public void setCourse(int idCourse) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getCourse() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

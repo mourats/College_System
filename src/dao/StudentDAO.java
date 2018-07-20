@@ -9,7 +9,6 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
-import entities.Login;
 import entities.Student;
 
 public class StudentDAO {
@@ -19,50 +18,47 @@ public class StudentDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public int insert(Student student) {
-		String sql = "INSERT INTO TB_STUDENT " + "(NAME,ADDRESS,NATIONALITY,NAME_LOGIN,PASSWORD)"
-				+ " VALUES (?,?,?,?,?);";
+	public int insert(Student student) throws SQLException {
+		String sql = "INSERT INTO TB_STUDENT " + "(NAME,ADDRESS,NATIONALITY)" + " VALUES (?,?,?);";
 
-		try {
-			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
-			stmt.setString(1, student.getName());
-			stmt.setString(2, student.getAddress());
-			stmt.setString(3, student.getNationality());
-			stmt.setString(4, student.getLogin().getLogin_name());
-			stmt.setString(5, student.getLogin().getPassword());
+		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+		stmt.setString(1, student.getName());
+		stmt.setString(2, student.getAddress());
+		stmt.setString(3, student.getNationality());
 
-			stmt.execute();
-			stmt.close();
+		stmt.execute();
+		stmt.close();
 
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		return getStudentIdByName(student.getName());
+	}
 
-		return this.loginStudent(student.getLogin()).getId();
+	public int getStudentIdByName(String nameStudent) throws SQLException {
+
+		PreparedStatement stmt = (PreparedStatement) this.connection
+				.prepareStatement("SELECT * FROM TB_STUDENT WHERE NAME = " + nameStudent);
+
+		ResultSet response = stmt.executeQuery();
+		stmt.close();
+
+		if (response.next())
+			return response.getInt("ID");
+		else
+			throw new RuntimeException();
 
 	}
 
-	public Student getStudentById(int id) {
+	public Student getStudentById(int id) throws SQLException {
 
-		PreparedStatement stmt;
+		PreparedStatement stmt = (PreparedStatement) this.connection
+				.prepareStatement("SELECT * FROM TB_STUDENT WHERE ID = " + id);
 
-		try {
-			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT WHERE ID = " + id);
+		ResultSet response = stmt.executeQuery();
+		stmt.close();
 
-			ResultSet response = stmt.executeQuery();
-
-			if (response.next()) {
-				return makeStudent(response);
-			}
-
-			response.close();
-			stmt.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
+		if (response.next())
+			return makeStudent(response);
+		else
+			throw new RuntimeException();
 	}
 
 	private Student makeStudent(ResultSet response) throws SQLException {
@@ -72,138 +68,80 @@ public class StudentDAO {
 		student.setName(response.getString("NAME"));
 		student.setAddress(response.getString("ADDRESS"));
 		student.setNationality(response.getString("NATIONALITY"));
-		student.setLogin(new Login(response.getString("NAME_LOGIN"), response.getString("PASSWORD")));
+		student.setCourse(response.getInt("ID_COURSE"));
 
 		return student;
 	}
 
-	public Student loginStudent(Login login) {
+	public void updateStudent(Student student) throws SQLException {
 
-		PreparedStatement stmt;
-		try {
-			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT WHERE NAME_LOGIN = '"
-					+ login.getLogin_name() + "' and PASSWORD = '" + login.getPassword() + "'");
+		String sql = "UPDATE TB_STUDENT SET " + "NAME=?, ADDRESS=?, NATIONALITY=?" + " WHERE ID =" + student.getId()
+				+ ";";
 
-			ResultSet response = stmt.executeQuery();
+		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+		stmt.setString(1, student.getName());
+		stmt.setString(2, student.getAddress());
+		stmt.setString(3, student.getNationality());
 
-			if (response.next()) {
-				return makeStudent(response);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	public void updateStudent(Student student) {
-
-		String sql = "UPDATE TB_STUDENT SET " + "NAME=?, ADDRESS=?, NATIONALITY=?, NAME_LOGIN=?, PASSWORD=?"
-				+ " WHERE ID =" + student.getId() + ";";
-
-		try {
-			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
-			stmt.setString(1, student.getName());
-			stmt.setString(2, student.getAddress());
-			stmt.setString(3, student.getNationality());
-			stmt.setString(4, student.getLogin().getLogin_name());
-			stmt.setString(5, student.getLogin().getPassword());
-
-			stmt.execute();
-			stmt.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		stmt.execute();
+		stmt.close();
 
 	}
 
-	public void deleteStudent(int id) {
+	public void deleteStudent(int id) throws SQLException {
 
 		String sql = "DELETE FROM TB_STUDENT" + " WHERE ID =" + id + ";";
 
-		try {
-			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 
-			stmt.execute();
-			stmt.close();
+		stmt.execute();
+		stmt.close();
 
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
-	public List<String> getAllStudents() {
+	public List<String> getAllStudents() throws SQLException {
 
-		PreparedStatement stmt;
-		try {
-			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT");
+		PreparedStatement stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_STUDENT");
 
-			ResultSet response = stmt.executeQuery();
+		ResultSet response = stmt.executeQuery();
 
-			List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<String>();
 
-			while (response.next()) {
-				result.add(makeStudent(response).toString());
-			}
-			response.close();
-			stmt.close();
-
-			return result;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		while (response.next()) {
+			result.add(makeStudent(response).toString());
 		}
+		response.close();
+		stmt.close();
 
-		return null;
+		return result;
 	}
 
-	public void setStudentInCourse(int idStudent, int idCourse) {
+	public void setStudentInCourse(int idStudent, int idCourse) throws SQLException {
 
-		String sql = "UPDATE TB_STUDENT SET " + "COURSE= " + idCourse + " WHERE ID =" + idStudent + ";";
-		try {
-			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
-			stmt.execute();
-			stmt.close();
+		String sql = "UPDATE TB_STUDENT SET " + "ID_COURSE= " + idCourse + " WHERE ID =" + idStudent + ";";
 
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+		stmt.execute();
+		stmt.close();
+
+	}
+
+	public List<String> getStudentsInCourse(int idCourse) throws SQLException {
+
+		PreparedStatement stmt = (PreparedStatement) this.connection
+				.prepareStatement("SELECT * FROM TB_STUDENT WHERE ID_COURSE = " + idCourse);
+
+		ResultSet response = stmt.executeQuery();
+		List<String> result = new ArrayList<String>();
+
+		while (response.next()) {
+			result.add(makeStudent(response).toString());
 		}
 
-	}
+		response.close();
+		stmt.close();
 
-	public void disconnect() throws SQLException {
-		this.connection.close();
-	}
-
-	public List<String> getStudentsInCourse(int idCourse) {
-
-		PreparedStatement stmt;
-
-		try {
-			stmt = (PreparedStatement) this.connection
-					.prepareStatement("SELECT * FROM TB_STUDENT WHERE COURSE = " + idCourse);
-
-			ResultSet response = stmt.executeQuery();
-
-			List<String> result = new ArrayList<String>();
-
-			while (response.next()) {
-				result.add(makeStudent(response).toString());
-			}
-			
-			response.close();
-			stmt.close();
-
-			return result;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
+		return result;
 
 	}
-
 }

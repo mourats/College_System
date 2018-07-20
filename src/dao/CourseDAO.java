@@ -22,27 +22,58 @@ public class CourseDAO {
 
 	public int insert(Course course) {
 		String sql;
-		
+
 		try {
 			sql = "INSERT INTO TB_STUDENT " + "(NAME)" + " VALUES (?);";
 			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 			stmt.setString(1, course.getName());
+
 			stmt.execute();
-			
-			sql = "SELECT * FROM TB_COURSE WHERE NAME="+course.getName()+";";
-			stmt = (PreparedStatement) this.connection.prepareStatement(sql);
-			ResultSet response = stmt.executeQuery();
-			
-			if (response.next()) {
-				return response.getInt("ID");
-			}
-			
 			stmt.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return 0;
+		return getCourseIdByName(course.getName());
+	}
+
+	private int getCourseIdByName(String nameCourse) {
+
+		PreparedStatement stmt;
+		try {
+			stmt = (PreparedStatement) this.connection
+					.prepareStatement("SELECT * FROM TB_COURSE WHERE NAME=" + nameCourse + ";");
+
+			ResultSet response = stmt.executeQuery();
+
+			if (response.next()) {
+				return response.getInt("ID");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public String getCourseById(int idCourse) {
+		
+		PreparedStatement stmt;
+		try {
+			stmt = (PreparedStatement) this.connection
+					.prepareStatement("SELECT * FROM TB_COURSE WHERE ID=" + idCourse + ";");
+
+			ResultSet response = stmt.executeQuery();
+
+			if (response.next()) {
+				return makeCourse(response).toString();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	public List<String> getAllCourses() {

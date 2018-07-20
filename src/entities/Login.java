@@ -2,20 +2,21 @@ package entities;
 
 public class Login {
 	
-	private String login_name;
+	private String loginName;
 	private String password;
+	private int idStudent;
 	
 	public Login(String name, String password) {
-		this.login_name = name;
+		this.loginName = name;
 		this.password = password;
 	}
 	
-	public String getLogin_name() {
-		return login_name;
+	public String getLoginName() {
+		return loginName;
 	}
 	
-	public void setLogin_name(String login_name) {
-		this.login_name = login_name;
+	public void setLoginName(String login_name) {
+		this.loginName = login_name;
 	}
 	public String getPassword() {
 		return password;
@@ -26,5 +27,13 @@ public class Login {
 
 	public static Login generateLOGIN(String name) {
 		return new Login(name, name);
+	}
+
+	public int getIdStudent() {
+		return idStudent;
+	}
+
+	public void setIdStudent(int idStudent) {
+		this.idStudent = idStudent;
 	}
 }
