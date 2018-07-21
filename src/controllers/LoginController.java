@@ -9,21 +9,20 @@ public class LoginController {
 	private LoginDAO loginDao;
 
 	public LoginController() {
-
+		this.loginDao = new LoginDAO();
 	}
 
-	public String logon(String name, String password) {
-
-		Login login = new Login(name, password);
-		String resultSearch = loginDao.login(login);
-		
-		if(resultSearch != null)
-			this.loginSession = login;
-		
-		return resultSearch;
-	}
-	
-	public int getStudentId(){
+	public int getStudentId() {
 		return this.loginSession.getIdStudent();
+	}
+
+	public boolean loginAdmin(String name, String password) {
+		Login login = new Login(name, password);
+		boolean loginResult = loginDao.loginAdmin(login);
+		if (loginResult) {
+			loginSession = login;
+			return true;
+		} else
+			return false;
 	}
 }

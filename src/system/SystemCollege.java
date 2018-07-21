@@ -6,34 +6,42 @@ import controllers.CourseController;
 import controllers.LoginController;
 import controllers.StudentController;
 
-public class System {
+public class SystemCollege {
 
-	private static System instance;
+	private static SystemCollege instance;
 
 	private CourseController courseController;
 	private LoginController loginController;
 	private StudentController studentController;
 
-	public System() {
+	private SystemCollege() {
 		this.loginController = new LoginController();
 	}
 
-	public String logon(String name, String password) {
-
-		String loginResult = loginController.logon(name, password);
-
-		if (loginResult != null)
+	public boolean loginAdmin(String name, String password) {
+		boolean loginResult = loginController.loginAdmin(name, password);
+		if (loginResult) {
 			logonSuccessful();
+			return true;
+		} else
+			return false;
+	}
 
-		return loginResult;
+	public boolean loginStudent(String name, String password) {
+		return false;
+
 	}
 
 	private void logonSuccessful() {
 		this.studentController = new StudentController();
 		this.courseController = new CourseController();
+		System.out.println("Oi deu certo");
 	}
 
-	public static System getInstanceSystem() {
+	public static SystemCollege getInstanceSystem() {
+		if (instance == null)
+			instance = new SystemCollege();
+
 		return instance;
 	}
 
@@ -73,18 +81,19 @@ public class System {
 		studentController.deleteStudent(idStudent);
 	}
 
-	public void updateStudent(int id, String name, String address, String nationality, String loginName, String password) {
+	public void updateStudent(int id, String name, String address, String nationality, String loginName,
+			String password) {
 		studentController.updateStudent(id, name, address, nationality, loginName, password);
 	}
 
 	// Student functions
 
 	public String getCourseEnrolled(int idStudent) {
-		
+
 		int idCourse = studentController.getIdCourse(idStudent);
 		return courseController.getCourseInformations(idCourse);
 	}
-	
+
 	public String getPerfilStudent() {
 		int idStudent = loginController.getStudentId();
 		return studentController.getStudentInformationsById(idStudent);
