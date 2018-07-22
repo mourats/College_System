@@ -14,7 +14,11 @@ public class CourseController {
 	}
 
 	public String getCourseInformations(int idCourse) {
-		return courseDao.getCourseById(idCourse);
+		String result = courseDao.getCourseById(idCourse);
+		if(result != null)
+			return result;
+		else
+			return "No course!";
 	}
 
 	public String getAllCourses() {

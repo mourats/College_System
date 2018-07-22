@@ -73,4 +73,17 @@ public class StudentController {
 		studentDao.deleteCourseInStudents(idCourse);
 	}
 
+	public String getStudentByName(String nameStudent) {
+
+		Student student = studentDao.getStudentByName(nameStudent);
+		if (student != null)
+			return student.toString();
+		else
+			return "Don't exist student with this name!";
+	}
+
+	public int getIdCourse(int idStudent) {
+		return studentDao.getStudentById(idStudent).getCourse();
+	}
+	
 }

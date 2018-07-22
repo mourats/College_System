@@ -12,13 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
-import view.admin.courses.AddNewCourseView;
-import view.admin.courses.AssignStudentCourse;
-import view.admin.courses.ChoiceACourse;
-import view.admin.courses.ChoiceACourseToDelete;
-import view.admin.students.AddNewStudentView;
-import view.admin.students.ChoiceAStudentToDelete;
-import view.admin.students.ChoiceAStudentToUpdate;
+import view.admin.services.courses.AddNewCourseView;
+import view.admin.services.courses.AssignStudentCourse;
+import view.admin.services.courses.ChoiceACourse;
+import view.admin.services.courses.ChoiceACourseToDelete;
+import view.admin.services.students.AddNewStudent;
+import view.admin.services.students.ChoiceAStudentToDelete;
+import view.admin.services.students.ChoiceAStudentToUpdate;
+import view.admin.services.students.SearchStudent;
 
 public class AdminDashboard extends JFrame {
 
@@ -34,7 +35,7 @@ public class AdminDashboard extends JFrame {
 	public AdminDashboard(int x, int y) {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(x, y, 450, 500);
+		setBounds(x, y, 450, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,7 +55,7 @@ public class AdminDashboard extends JFrame {
 				JOptionPane.showMessageDialog(null, system.getAllCourses(), "Courses", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		btnAllCourses.setBounds(28, 102, 189, 25);
+		btnAllCourses.setBounds(67, 158, 324, 25);
 		contentPane.add(btnAllCourses);
 
 		JButton btnNewCourse = new JButton("Add a New Course");
@@ -66,7 +67,7 @@ public class AdminDashboard extends JFrame {
 				addCourseView.setVisible(true);
 			}
 		});
-		btnNewCourse.setBounds(247, 65, 174, 25);
+		btnNewCourse.setBounds(67, 85, 324, 25);
 		contentPane.add(btnNewCourse);
 
 		JButton btnAllStudents = new JButton("View All Students");
@@ -77,7 +78,7 @@ public class AdminDashboard extends JFrame {
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		btnAllStudents.setBounds(67, 213, 324, 25);
+		btnAllStudents.setBounds(67, 245, 324, 25);
 		contentPane.add(btnAllStudents);
 
 		JButton btnViewAllStudentsCourse = new JButton("View all the Students in a Course");
@@ -89,7 +90,7 @@ public class AdminDashboard extends JFrame {
 				choiceCourseView.setVisible(true);
 			}
 		});
-		btnViewAllStudentsCourse.setBounds(67, 250, 324, 28);
+		btnViewAllStudentsCourse.setBounds(67, 282, 324, 25);
 		contentPane.add(btnViewAllStudentsCourse);
 
 		JButton btnNewButton = new JButton("Delete a Student");
@@ -101,7 +102,7 @@ public class AdminDashboard extends JFrame {
 				choiceStudentView.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(67, 290, 324, 25);
+		btnNewButton.setBounds(67, 359, 324, 25);
 		contentPane.add(btnNewButton);
 
 		JButton btnAddANewStudent = new JButton("Add a New Student");
@@ -109,12 +110,11 @@ public class AdminDashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int x = getX();
 				int y = getY();
-				AddNewStudentView addStudentView = new AddNewStudentView(x, y);
+				AddNewStudent addStudentView = new AddNewStudent(x, y);
 				addStudentView.setVisible(true);
-
 			}
 		});
-		btnAddANewStudent.setBounds(67, 327, 324, 25);
+		btnAddANewStudent.setBounds(67, 322, 324, 25);
 		contentPane.add(btnAddANewStudent);
 
 		JButton btnUpdateStudent = new JButton("Update a Student");
@@ -127,7 +127,7 @@ public class AdminDashboard extends JFrame {
 
 			}
 		});
-		btnUpdateStudent.setBounds(67, 364, 324, 25);
+		btnUpdateStudent.setBounds(67, 396, 324, 25);
 		contentPane.add(btnUpdateStudent);
 
 		JButton assignStudentCourse = new JButton("Assign Student into Course");
@@ -139,7 +139,7 @@ public class AdminDashboard extends JFrame {
 				assignStudent.setVisible(true);
 			}
 		});
-		assignStudentCourse.setBounds(81, 149, 260, 25);
+		assignStudentCourse.setBounds(67, 195, 324, 25);
 		contentPane.add(assignStudentCourse);
 
 		JButton deleteCourse = new JButton("Delete a Course");
@@ -151,12 +151,23 @@ public class AdminDashboard extends JFrame {
 				courseToDelete.setVisible(true);
 			}
 		});
-		deleteCourse.setBounds(247, 102, 174, 25);
+		deleteCourse.setBounds(67, 121, 324, 25);
 		contentPane.add(deleteCourse);
+		
+		JButton btnSearchStudentBy = new JButton("Search Student By Name");
+		btnSearchStudentBy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int x = getX();
+				int y = getY();
+				SearchStudent searchStudent = new SearchStudent(x, y);
+				searchStudent.setVisible(true);
+			}
+		});
+		btnSearchStudentBy.setBounds(67, 433, 324, 25);
+		contentPane.add(btnSearchStudentBy);
 
 		JLabel label = new JLabel("___________________________________________________________");
-		label.setBounds(45, 186, 392, 15);
+		label.setBounds(46, 218, 392, 15);
 		contentPane.add(label);
-
 	}
 }

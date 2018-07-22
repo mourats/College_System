@@ -20,7 +20,17 @@ public class LoginController {
 		Login login = new Login(name, password);
 		boolean loginResult = loginDao.loginAdmin(login);
 		if (loginResult) {
-			loginSession = login;
+			this.loginSession = login;
+			return true;
+		} else
+			return false;
+	}
+	
+	public boolean loginStudent(String name, String password) {
+		Login login = new Login(name, password);
+		boolean loginResult = loginDao.loginStudent(login);
+		if (loginResult) {
+			this.loginSession = login;
 			return true;
 		} else
 			return false;
@@ -35,5 +45,16 @@ public class LoginController {
 
 	public void deleteLogin(int idStudent) {
 		loginDao.deleteLogin(idStudent);
+	}
+	
+	public String getLoginStudent() {
+		return loginSession.toString();
+	}
+
+	public void updateOwnLogin(String userName, String password) {
+		loginSession.setLoginName(userName);
+		loginSession.setPassword(password);
+		
+		loginDao.updateLoginData(loginSession);	
 	}
 }

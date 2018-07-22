@@ -84,7 +84,7 @@ public class StudentDAO {
 		return result;
 	}
 
-	public void setStudentInCourse(int idStudent, int idCourse){
+	public void setStudentInCourse(int idStudent, int idCourse) {
 
 		try {
 			String sql = "UPDATE TB_STUDENT SET " + "ID_COURSE= " + idCourse + " WHERE ID =" + idStudent + ";";
@@ -92,8 +92,8 @@ public class StudentDAO {
 			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 			stmt.execute();
 			stmt.close();
-			
-		} catch (SQLException  e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -186,8 +186,7 @@ public class StudentDAO {
 
 	public void deleteCourseInStudents(int idCourse) {
 		try {
-			String sql = "UPDATE TB_STUDENT SET " + "ID_COURSE=NULL"+ " WHERE ID_COURSE =" + idCourse
-					+ ";";
+			String sql = "UPDATE TB_STUDENT SET " + "ID_COURSE=NULL" + " WHERE ID_COURSE =" + idCourse + ";";
 
 			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 

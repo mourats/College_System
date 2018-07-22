@@ -35,6 +35,26 @@ public class LoginDAO {
 		return false;
 	}
 
+	public boolean loginStudent(Login login) {
+
+		try {
+			PreparedStatement stmt = (PreparedStatement) this.connection
+					.prepareStatement("SELECT * FROM TB_LOGIN_STUDENT WHERE NAME_LOGIN = '" + login.getLoginName()
+							+ "' and PASSWORD = '" + login.getPassword() + "'");
+
+			ResultSet response = stmt.executeQuery();
+
+			if (response.next()) {
+				login.setIdStudent(response.getInt("ID"));
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public void insertLogin(Login login) {
 
 		try {
@@ -52,7 +72,7 @@ public class LoginDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void deleteLogin(int id) {
 
 		try {
@@ -67,4 +87,21 @@ public class LoginDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public void updateLoginData(Login login) {
+		try {
+			String sql = "UPDATE TB_LOGIN_STUDENT SET " + "NAME_LOGIN=?, PASSWORD=?" + " WHERE ID =" + login.getIdStudent()
+					+ ";";
+
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+			stmt.setString(1, login.getLoginName());
+			stmt.setString(2, login.getPassword());
+
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	} 
 }

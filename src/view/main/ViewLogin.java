@@ -27,9 +27,7 @@ public class ViewLogin extends JFrame {
 	private JPasswordField password;
 	private SystemCollege system;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -44,9 +42,6 @@ public class ViewLogin extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public ViewLogin() {
 
 		system = SystemCollege.getInstanceSystem();

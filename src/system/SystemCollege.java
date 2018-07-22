@@ -15,33 +15,27 @@ public class SystemCollege {
 	private SystemCollege() {
 		this.loginController = new LoginController();
 	}
-
-	public boolean loginAdmin(String name, String password) {logonSuccessful(); return true; 
-		/*
-		boolean loginResult = loginController.loginAdmin(name, password);
-		if (loginResult) {
-			logonSuccessful();
-			return true;
-		} else
-			return false;*/
-	}
-
-	public boolean loginStudent(String name, String password) {
-		return false;
-
-	}
-
-	private void logonSuccessful() {
-		this.studentController = new StudentController();
-		this.courseController = new CourseController();
-		System.out.println("Oi deu certo");
-	}
-
+	
 	public static SystemCollege getInstanceSystem() {
 		if (instance == null)
 			instance = new SystemCollege();
 
 		return instance;
+	}
+	
+	private void logonSuccessful() {
+		this.studentController = new StudentController();
+		this.courseController = new CourseController();
+	}
+
+	public boolean loginAdmin(String name, String password) {
+		
+		boolean loginResult = loginController.loginAdmin(name, password);
+		if (loginResult) {
+			logonSuccessful();
+			return true;
+		} else
+			return false;
 	}
 
 	// Admin functions
@@ -89,23 +83,47 @@ public class SystemCollege {
 	public void updateStudent(int id, String name, String address, String nationality) {
 		studentController.updateStudent(id, name, address, nationality);
 	}
-
-	// Student functions
-	/*
-
-	public String getCourseEnrolled(int idStudent) {
-
-		int idCourse = studentController.getIdCourse(idStudent);
-		return courseController.getCourseInformations(idCourse);
-	}
-*/
+	
 	public String getPerfilStudentById(int idStudent) {
 		return studentController.getStudentInformationsById(idStudent);
+	}
+
+	public String getStudentByName(String nameStudent) {
+		return studentController.getStudentByName(nameStudent);
+	}
+	
+
+	// Student functions
+
+	public boolean loginStudent(String name, String password) {
+		boolean loginResult = loginController.loginStudent(name, password);
+		if (loginResult) {
+			logonSuccessful();
+			return true;
+		} else
+			return false;
 	}
 	
 	public String getPerfilStudent() {
 		int idStudent = loginController.getStudentId();
-		return studentController.getStudentInformationsById(idStudent);
+		return studentController.getStudentInformationsById(idStudent) + getLoginStudent();
+	}
+
+	public String getCourseEnrolled() {
+		
+		int idStudent = loginController.getStudentId();
+		int idCourse = studentController.getIdCourse(idStudent);
+		return courseController.getCourseInformations(idCourse);
+	}
+	
+	private String getLoginStudent() {
+		return loginController.getLoginStudent();
+	}
+
+	public void updateStudentOwnProfile(String name, String address, String nationality, String userName, String password) {
+		int idStudent = loginController.getStudentId();
+		studentController.updateStudent(idStudent, name, address, nationality);
+		loginController.updateOwnLogin(userName, password);
 	}
 
 }
