@@ -31,6 +31,7 @@ public class ViewLogin extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,9 +48,9 @@ public class ViewLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public ViewLogin() {
-		
+
 		system = SystemCollege.getInstanceSystem();
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -85,19 +86,18 @@ public class ViewLogin extends JFrame {
 
 				String userString = user.getText().trim();
 				String passwordString = new String(password.getPassword()).trim();
-				
-				
+
 				int x = getX();
 				int y = getY();
 
 				if (system.loginAdmin(userString, passwordString)) {
 
-					AdminDashboard adminView = new AdminDashboard(x, y, system);
+					AdminDashboard adminView = new AdminDashboard(x, y);
 					dispose();
 					adminView.setVisible(true);
 
 				} else if (system.loginStudent(userString, passwordString)) {
-					
+
 					StudentDashboard studentView = new StudentDashboard(x, y);
 					dispose();
 					studentView.setVisible(true);

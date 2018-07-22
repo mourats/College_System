@@ -10,7 +10,6 @@ import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
 import entities.Course;
-import entities.Student;
 
 public class CourseDAO {
 
@@ -20,44 +19,23 @@ public class CourseDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public int insert(Course course) {
-		String sql;
+	public void insert(String courseName) {
 
 		try {
-			sql = "INSERT INTO TB_STUDENT " + "(NAME)" + " VALUES (?);";
+			String sql = "INSERT INTO TB_COURSE " + "(NAME)" + " VALUES (?);";
 			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
-			stmt.setString(1, course.getName());
+			stmt.setString(1, courseName);
 
 			stmt.execute();
 			stmt.close();
 
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return getCourseIdByName(course.getName());
-	}
-
-	private int getCourseIdByName(String nameCourse) {
-
-		PreparedStatement stmt;
-		try {
-			stmt = (PreparedStatement) this.connection
-					.prepareStatement("SELECT * FROM TB_COURSE WHERE NAME=" + nameCourse + ";");
-
-			ResultSet response = stmt.executeQuery();
-
-			if (response.next()) {
-				return response.getInt("ID");
-			}
-
-		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return -1;
 	}
 
 	public String getCourseById(int idCourse) {
-		
+
 		PreparedStatement stmt;
 		try {
 			stmt = (PreparedStatement) this.connection
@@ -76,18 +54,17 @@ public class CourseDAO {
 
 	}
 
-	public List<String> getAllCourses() {
+	public List<Course> getAllCourses() {
 
-		PreparedStatement stmt;
+		List<Course> result = new ArrayList<Course>();
+
 		try {
-			stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_COURSE");
+			PreparedStatement stmt = (PreparedStatement) this.connection.prepareStatement("SELECT * FROM TB_COURSE");
 
 			ResultSet response = stmt.executeQuery();
 
-			List<String> result = new ArrayList<String>();
-
 			while (response.next()) {
-				result.add(makeCourse(response).toString());
+				result.add(makeCourse(response));
 			}
 
 			return result;
@@ -96,7 +73,7 @@ public class CourseDAO {
 			e.printStackTrace();
 		}
 
-		return null;
+		return result;
 	}
 
 	private Course makeCourse(ResultSet response) throws SQLException {
@@ -106,6 +83,20 @@ public class CourseDAO {
 		course.setName(response.getString("NAME"));
 
 		return course;
+	}
+
+	public void deleteCourse(int idCourse) {
+		try {
+			String sql = "DELETE FROM TB_COURSE" + " WHERE ID =" + idCourse + ";";
+
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

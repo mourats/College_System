@@ -36,4 +36,9 @@ public class Login {
 	public void setIdStudent(int idStudent) {
 		this.idStudent = idStudent;
 	}
+	
+	@Override
+	public String toString() {
+		return "LOGIN NAME: " + getLoginName() + System.lineSeparator() + "PASSWORD: " + getPassword();
+	}
 }

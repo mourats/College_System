@@ -27,6 +27,8 @@ public class Course {
 		this.id = id;
 	}
 	
-	
-
+	@Override
+	public String toString() {
+		return "ID: " + getId() + System.lineSeparator() + "NAME: " + getName() + System.lineSeparator();
+	}
 }

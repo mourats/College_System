@@ -51,12 +51,24 @@ public class Student {
 	}
 
 	public void setCourse(int idCourse) {
-		// TODO Auto-generated method stub
-		
+		this.idCourse = idCourse;
 	}
 
 	public int getCourse() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.idCourse;
+	}
+
+	@Override
+	public String toString() {
+
+		String course = "";
+		if (getCourse() != 0)
+			course = "" + getCourse();
+		else
+			course = "No course";
+
+		return "ID: " + getId() + System.lineSeparator() + "NAME: " + getName() + System.lineSeparator() + "ADDRESS: "
+				+ getAddress() + System.lineSeparator() + "NATIONALITY: " + getNationality() + System.lineSeparator()
+				+ "COURSE: " + course + System.lineSeparator();
 	}
 }

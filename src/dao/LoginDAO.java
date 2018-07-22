@@ -8,7 +8,6 @@ import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
 import entities.Login;
-import entities.Student;
 
 public class LoginDAO {
 
@@ -33,8 +32,39 @@ public class LoginDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
+	public void insertLogin(Login login) {
+
+		try {
+			String sql = "INSERT INTO TB_LOGIN_STUDENT " + "(ID, NAME_LOGIN, PASSWORD)" + " VALUES (?,?,?);";
+
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+			stmt.setInt(1, login.getIdStudent());
+			stmt.setString(2, login.getLoginName());
+			stmt.setString(3, login.getPassword());
+
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteLogin(int id) {
+
+		try {
+			String sql = "DELETE FROM TB_LOGIN_STUDENT" + " WHERE ID =" + id + ";";
+
+			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+
+			stmt.execute();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

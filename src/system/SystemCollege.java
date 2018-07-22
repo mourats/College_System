@@ -1,7 +1,5 @@
 package system;
 
-import java.util.List;
-
 import controllers.CourseController;
 import controllers.LoginController;
 import controllers.StudentController;
@@ -18,13 +16,14 @@ public class SystemCollege {
 		this.loginController = new LoginController();
 	}
 
-	public boolean loginAdmin(String name, String password) {
+	public boolean loginAdmin(String name, String password) {logonSuccessful(); return true; 
+		/*
 		boolean loginResult = loginController.loginAdmin(name, password);
 		if (loginResult) {
 			logonSuccessful();
 			return true;
 		} else
-			return false;
+			return false;*/
 	}
 
 	public boolean loginStudent(String name, String password) {
@@ -47,16 +46,15 @@ public class SystemCollege {
 
 	// Admin functions
 
-	public List<String> getAllCourses() {
+	public String getAllCourses() {
 		return courseController.getAllCourses();
 	}
 
-	public List<String> getAllStudents() {
+	public String getAllStudents() {
 		return studentController.getAllStudents();
 	}
 
-	public List<String> getStudentsInCourse(int idCourse) {
-
+	public String getStudentsInCourse(int idCourse) {
 		return studentController.getStudentsInCourse(idCourse);
 	}
 
@@ -65,37 +63,49 @@ public class SystemCollege {
 		studentController.setStudentInCourse(idStudent, idCourse);
 	}
 
-	public int addNewCourse(String courseName) {
-
-		int idCourse = courseController.insertCourse(courseName);
-		return idCourse;
+	public void addNewCourse(String courseName) {
+		
+		courseController.insertCourse(courseName);
 	}
 
-	public int addNewStudent(String name, String address, String nationality) {
+	public String addNewStudent(String name, String address, String nationality) {
 
-		int idStudent = studentController.insertStudent(name, address, nationality);
-		return idStudent;
+		studentController.insertStudent(name, address, nationality);
+		int idStudent = studentController.getStudentIdByName(name);
+		String loginResult = loginController.generateLogin(idStudent);
+		return loginResult;
 	}
 
 	public void deleteStudentById(int idStudent) {
 		studentController.deleteStudent(idStudent);
+		loginController.deleteLogin(idStudent);
+	}
+	
+	public void deleteCourse(int idCourse) {
+		courseController.deleteCourse(idCourse);
+		studentController.deleteCourseInStudents(idCourse);
 	}
 
-	public void updateStudent(int id, String name, String address, String nationality, String loginName,
-			String password) {
-		studentController.updateStudent(id, name, address, nationality, loginName, password);
+	public void updateStudent(int id, String name, String address, String nationality) {
+		studentController.updateStudent(id, name, address, nationality);
 	}
 
 	// Student functions
+	/*
 
 	public String getCourseEnrolled(int idStudent) {
 
 		int idCourse = studentController.getIdCourse(idStudent);
 		return courseController.getCourseInformations(idCourse);
 	}
-
+*/
+	public String getPerfilStudentById(int idStudent) {
+		return studentController.getStudentInformationsById(idStudent);
+	}
+	
 	public String getPerfilStudent() {
 		int idStudent = loginController.getStudentId();
 		return studentController.getStudentInformationsById(idStudent);
 	}
+
 }
