@@ -1,5 +1,6 @@
 package view.student;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
+import view.main.ViewLogin;
 import view.student.UpdateYourOwnProfile;
 
 public class StudentDashboard extends JFrame {
@@ -19,11 +21,15 @@ public class StudentDashboard extends JFrame {
 	private static final long serialVersionUID = -17358249654992114L;
 	
 	private JPanel contentPane;
+	private SystemCollege system;
 
 	/**
 	 * Create the frame.
 	 */
 	public StudentDashboard(int x, int y) {
+		
+		system = SystemCollege.getInstanceSystem();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(x, y, 450, 300);
 		contentPane = new JPanel();
@@ -39,7 +45,6 @@ public class StudentDashboard extends JFrame {
 		JButton btnViewProfile = new JButton("View My Profile");
 		btnViewProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemCollege system = SystemCollege.getInstanceSystem();
 				JOptionPane.showMessageDialog(null, system.getPerfilStudent(), "My Profile", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
@@ -61,12 +66,24 @@ public class StudentDashboard extends JFrame {
 		JButton btnWhatCourse = new JButton("See What Course I'm in");
 		btnWhatCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemCollege system = SystemCollege.getInstanceSystem();
 				JOptionPane.showMessageDialog(null, system.getCourseEnrolled(), "My Course", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnWhatCourse.setBounds(70, 162, 297, 25);
 		contentPane.add(btnWhatCourse);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				system.clearInstanceSystem();
+				ViewLogin loginAgain = new ViewLogin(getX(), getY());
+				dispose();
+				loginAgain.setVisible(true);
+			}
+		});
+		btnLogout.setBounds(162, 221, 117, 25);
+		btnLogout.setBackground(new Color(240, 128, 128));
+		contentPane.add(btnLogout);
 	}
 
 }

@@ -27,13 +27,12 @@ public class ViewLogin extends JFrame {
 	private JPasswordField password;
 	private SystemCollege system;
 
-	
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewLogin frame = new ViewLogin();
+					ViewLogin frame = new ViewLogin(100, 100);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,12 +41,12 @@ public class ViewLogin extends JFrame {
 		});
 	}
 
-	public ViewLogin() {
+	public ViewLogin(int x, int y) {
 
 		system = SystemCollege.getInstanceSystem();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(x, y, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPane);

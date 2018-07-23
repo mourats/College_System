@@ -1,5 +1,6 @@
 package view.admin;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,12 +21,14 @@ import view.admin.services.students.AddNewStudent;
 import view.admin.services.students.ChoiceAStudentToDelete;
 import view.admin.services.students.ChoiceAStudentToUpdate;
 import view.admin.services.students.SearchStudent;
+import view.main.ViewLogin;
 
 public class AdminDashboard extends JFrame {
 
 	private static final long serialVersionUID = 6244993357481124230L;
 
 	private JPanel contentPane;
+	private SystemCollege system;
 
 	/**
 	 * Create the frame.
@@ -33,6 +36,8 @@ public class AdminDashboard extends JFrame {
 	 * @param system
 	 */
 	public AdminDashboard(int x, int y) {
+		
+		system = SystemCollege.getInstanceSystem();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(x, y, 450, 540);
@@ -51,7 +56,6 @@ public class AdminDashboard extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
-				SystemCollege system = SystemCollege.getInstanceSystem();
 				JOptionPane.showMessageDialog(null, system.getAllCourses(), "Courses", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
@@ -73,7 +77,7 @@ public class AdminDashboard extends JFrame {
 		JButton btnAllStudents = new JButton("View All Students");
 		btnAllStudents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemCollege system = SystemCollege.getInstanceSystem();
+
 				JOptionPane.showMessageDialog(null, system.getAllStudents(), "Students",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -165,9 +169,23 @@ public class AdminDashboard extends JFrame {
 		});
 		btnSearchStudentBy.setBounds(67, 433, 324, 25);
 		contentPane.add(btnSearchStudentBy);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				system.clearInstanceSystem();
+				ViewLogin loginAgain = new ViewLogin(getX(), getY());
+				dispose();
+				loginAgain.setVisible(true);
+			}
+		});
+		btnLogout.setBounds(169, 476, 117, 25);
+		btnLogout.setBackground(new Color(240, 128, 128));
+		contentPane.add(btnLogout);
 
 		JLabel label = new JLabel("___________________________________________________________");
 		label.setBounds(46, 218, 392, 15);
 		contentPane.add(label);
+		
 	}
 }

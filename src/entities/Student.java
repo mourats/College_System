@@ -69,6 +69,6 @@ public class Student {
 
 		return "ID: " + getId() + System.lineSeparator() + "NAME: " + getName() + System.lineSeparator() + "ADDRESS: "
 				+ getAddress() + System.lineSeparator() + "NATIONALITY: " + getNationality() + System.lineSeparator()
-				+ "COURSE: " + course + System.lineSeparator();
+				+ "COURSE ID: " + course + System.lineSeparator();
 	}
 }

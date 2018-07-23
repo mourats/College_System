@@ -22,6 +22,9 @@ public class SystemCollege {
 
 		return instance;
 	}
+	public void clearInstanceSystem() {
+		SystemCollege.instance = null;
+	}
 	
 	private void logonSuccessful() {
 		this.studentController = new StudentController();
