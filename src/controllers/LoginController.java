@@ -57,4 +57,8 @@ public class LoginController {
 		
 		loginDao.updateLoginData(loginSession);	
 	}
+	
+	public void initialLoginForAdmin() {
+		loginDao.initialLoginForAdmin();
+	}
 }

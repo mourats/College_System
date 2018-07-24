@@ -14,10 +14,11 @@ public class SystemCollege {
 
 	private SystemCollege() {
 		this.loginController = new LoginController();
+		this.loginController.initialLoginForAdmin();
 	}
 	
 	public static SystemCollege getInstanceSystem() {
-		if (instance == null)
+		if (instance == null) 
 			instance = new SystemCollege();
 
 		return instance;

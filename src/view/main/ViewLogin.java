@@ -17,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import system.SystemCollege;
 import view.admin.AdminDashboard;
 import view.student.StudentDashboard;
+import view.util.CheckView;
 
 public class ViewLogin extends JFrame {
 
@@ -81,29 +82,46 @@ public class ViewLogin extends JFrame {
 				String userString = user.getText().trim();
 				String passwordString = new String(password.getPassword()).trim();
 
-				int x = getX();
-				int y = getY();
+				boolean canIGo = checkOfInput(userString, passwordString);
+				if (canIGo) {
+					int x = getX();
+					int y = getY();
 
-				if (system.loginAdmin(userString, passwordString)) {
+					if (system.loginAdmin(userString, passwordString)) {
 
-					AdminDashboard adminView = new AdminDashboard(x, y);
-					dispose();
-					adminView.setVisible(true);
+						AdminDashboard adminView = new AdminDashboard(x, y);
+						dispose();
+						adminView.setVisible(true);
 
-				} else if (system.loginStudent(userString, passwordString)) {
+					} else if (system.loginStudent(userString, passwordString)) {
 
-					StudentDashboard studentView = new StudentDashboard(x, y);
-					dispose();
-					studentView.setVisible(true);
+						StudentDashboard studentView = new StudentDashboard(x, y);
+						dispose();
+						studentView.setVisible(true);
 
-				} else {
-					JOptionPane.showMessageDialog(null, "Login Incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-					user.setText("");
-					password.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Login Incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+						user.setText("");
+						password.setText("");
+					}
 				}
 			}
 		});
 		btnLogin.setBounds(179, 223, 117, 25);
 		contentPane.add(btnLogin);
+	}
+
+	private boolean checkOfInput(String userString, String passwordString) {
+
+		if (!CheckView.verifyUsername(userString)) {
+			user.setText("");
+			password.setText("");
+			return false;
+		} else if (!CheckView.verifyPassword(passwordString)) {
+			user.setText("");
+			password.setText("");
+			return false;
+		} else
+			return true;
 	}
 }

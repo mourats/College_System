@@ -47,12 +47,12 @@ public class StudentController {
 
 	}
 
-	public int getStudentIdByName(String name) {
-		return studentDao.getStudentByName(name).getId();
-	}
-
 	public void deleteStudent(int idStudent) {
 		studentDao.deleteStudent(idStudent);
+	}
+	
+	public int getStudentIdByName(String name) {
+		return studentDao.getStudentByName(name).getId();
 	}
 
 	public String getStudentInformationsById(int idStudent) {
