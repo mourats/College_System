@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
+import view.util.CheckView;
 
 public class UpdateYourOwnProfile extends JDialog {
 
@@ -66,7 +67,7 @@ public class UpdateYourOwnProfile extends JDialog {
 		JLabel lblUserName = new JLabel("User Name:");
 		lblUserName.setBounds(25, 146, 88, 15);
 		contentPanel.add(lblUserName);
-		
+
 		userName = new JTextField();
 		userName.setColumns(10);
 		userName.setBounds(111, 144, 277, 19);
@@ -87,12 +88,15 @@ public class UpdateYourOwnProfile extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemCollege system = SystemCollege.getInstanceSystem();
 				String passwordText = new String(password.getPassword()).trim();
-				// validar.
-				system.updateStudentOwnProfile(name.getText(), address.getText(), nationality.getText(),
+				boolean canIGo = checkOfInput(name.getText(), address.getText(), nationality.getText(),
 						userName.getText(), passwordText);
-				dispose();
+				if (canIGo) {
+					SystemCollege system = SystemCollege.getInstanceSystem();
+					system.updateStudentOwnProfile(name.getText(), address.getText(), nationality.getText(),
+							userName.getText(), passwordText);
+					dispose();
+				}
 			}
 		});
 		okButton.setActionCommand("OK");
@@ -107,5 +111,35 @@ public class UpdateYourOwnProfile extends JDialog {
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+	}
+
+	private boolean checkOfInput(String nameString, String addressString, String nationalityString,
+			String userNameString, String passwordString) {
+
+		if (!CheckView.verifyName(nameString)) {
+			clearTextFields();
+			return false;
+		} else if (!CheckView.verifyAddress(addressString)) {
+			clearTextFields();
+			return false;
+		} else if (!CheckView.verifyNationality(nationalityString)) {
+			clearTextFields();
+			return false;
+		} else if (!CheckView.verifyUsername(userNameString)) {
+			clearTextFields();
+			return false;
+		} else if (!CheckView.verifyPassword(passwordString)) {
+			clearTextFields();
+			return false;
+		} else
+			return true;
+	}
+
+	private void clearTextFields() {
+		name.setText("");
+		address.setText("");
+		nationality.setText("");
+		userName.setText("");
+		password.setText("");
 	}
 }
