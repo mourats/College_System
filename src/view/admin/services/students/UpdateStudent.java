@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -26,10 +25,6 @@ public class UpdateStudent extends JDialog {
 	private JTextField nationality;
 
 	public UpdateStudent(int x, int y, int idStudent) {
-
-		SystemCollege system = SystemCollege.getInstanceSystem();
-		JOptionPane.showMessageDialog(null, system.getPerfilStudentById(idStudent), "Student",
-				JOptionPane.INFORMATION_MESSAGE);
 
 		setTitle("Update a student");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -93,6 +88,11 @@ public class UpdateStudent extends JDialog {
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+		
+		SystemCollege system = SystemCollege.getInstanceSystem();
+		name.setText(system.getStudentDataInMap(idStudent).get("NAME"));
+		address.setText(system.getStudentDataInMap(idStudent).get("ADDRESS"));
+		nationality.setText(system.getStudentDataInMap(idStudent).get("NATIONALITY"));	
 	}
 
 	private boolean checkOfInput(String nameString, String addressString, String nationalityString) {

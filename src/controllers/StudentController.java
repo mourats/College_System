@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.StudentDAO;
 import entities.Student;
@@ -88,6 +89,10 @@ public class StudentController {
 
 	public boolean existStudent(int idStudent) {
 		return studentDao.existStudent(idStudent);
+	}
+
+	public Map<String, String> getStudentDataInMap(int idStudent) {
+		return studentDao.getStudentById(idStudent).toMapString();
 	}
 	
 }

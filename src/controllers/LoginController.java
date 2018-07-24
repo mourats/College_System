@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Map;
+
 import dao.LoginDAO;
 import entities.Login;
 
@@ -60,5 +62,9 @@ public class LoginController {
 	
 	public void initialLoginForAdmin() {
 		loginDao.initialLoginForAdmin();
+	}
+
+	public Map<String, String> getLoginDataInMap() {
+		return loginSession.toMapString();
 	}
 }

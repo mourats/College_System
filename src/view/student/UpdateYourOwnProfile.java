@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -25,7 +24,7 @@ public class UpdateYourOwnProfile extends JDialog {
 	private JTextField address;
 	private JTextField nationality;
 	private JTextField userName;
-	private JPasswordField password;
+	private JTextField password;
 
 	public UpdateYourOwnProfile(int x, int y) {
 
@@ -77,7 +76,8 @@ public class UpdateYourOwnProfile extends JDialog {
 		lblPassword.setBounds(25, 190, 80, 15);
 		contentPanel.add(lblPassword);
 
-		password = new JPasswordField();
+		password = new JTextField();
+		userName.setColumns(10);
 		password.setBounds(111, 188, 277, 19);
 		contentPanel.add(password);
 
@@ -88,13 +88,12 @@ public class UpdateYourOwnProfile extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String passwordText = new String(password.getPassword()).trim();
 				boolean canIGo = checkOfInput(name.getText(), address.getText(), nationality.getText(),
-						userName.getText(), passwordText);
+						userName.getText(), password.getText());
 				if (canIGo) {
 					SystemCollege system = SystemCollege.getInstanceSystem();
 					system.updateStudentOwnProfile(name.getText(), address.getText(), nationality.getText(),
-							userName.getText(), passwordText);
+							userName.getText(), password.getText());
 					dispose();
 				}
 			}
@@ -111,6 +110,13 @@ public class UpdateYourOwnProfile extends JDialog {
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+		
+		SystemCollege system = SystemCollege.getInstanceSystem();
+		name.setText(system.getStudentOwnDataInMap().get("NAME"));
+		address.setText(system.getStudentOwnDataInMap().get("ADDRESS"));
+		nationality.setText(system.getStudentOwnDataInMap().get("NATIONALITY"));	
+		userName.setText(system.getLoginOwnDataInMap().get("LOGIN NAME"));
+		password.setText(system.getLoginOwnDataInMap().get("PASSWORD"));
 	}
 
 	private boolean checkOfInput(String nameString, String addressString, String nationalityString,

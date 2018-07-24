@@ -1,5 +1,7 @@
 package system;
 
+import java.util.Map;
+
 import controllers.CourseController;
 import controllers.LoginController;
 import controllers.StudentController;
@@ -16,24 +18,25 @@ public class SystemCollege {
 		this.loginController = new LoginController();
 		this.loginController.initialLoginForAdmin();
 	}
-	
+
 	public static SystemCollege getInstanceSystem() {
-		if (instance == null) 
+		if (instance == null)
 			instance = new SystemCollege();
 
 		return instance;
 	}
+
 	public void clearInstanceSystem() {
 		SystemCollege.instance = null;
 	}
-	
+
 	private void logonSuccessful() {
 		this.studentController = new StudentController();
 		this.courseController = new CourseController();
 	}
 
 	public boolean loginAdmin(String name, String password) {
-		
+
 		boolean loginResult = loginController.loginAdmin(name, password);
 		if (loginResult) {
 			logonSuccessful();
@@ -62,7 +65,7 @@ public class SystemCollege {
 	}
 
 	public void addNewCourse(String courseName) {
-		
+
 		courseController.insertCourse(courseName);
 	}
 
@@ -78,7 +81,7 @@ public class SystemCollege {
 		loginController.deleteLogin(idStudent);
 		studentController.deleteStudent(idStudent);
 	}
-	
+
 	public void deleteCourse(int idCourse) {
 		courseController.deleteCourse(idCourse);
 		studentController.deleteCourseInStudents(idCourse);
@@ -87,7 +90,7 @@ public class SystemCollege {
 	public void updateStudent(int id, String name, String address, String nationality) {
 		studentController.updateStudent(id, name, address, nationality);
 	}
-	
+
 	public String getPerfilStudentById(int idStudent) {
 		return studentController.getStudentInformationsById(idStudent);
 	}
@@ -95,7 +98,7 @@ public class SystemCollege {
 	public String getStudentByName(String nameStudent) {
 		return studentController.getStudentByName(nameStudent);
 	}
-	
+
 	public boolean existCourse(int idCourse) {
 		return courseController.existeCourse(idCourse);
 	}
@@ -103,7 +106,10 @@ public class SystemCollege {
 	public boolean existStudent(int idStudent) {
 		return studentController.existStudent(idStudent);
 	}
-	
+
+	public Map<String, String> getStudentDataInMap(int idStudent) {
+		return studentController.getStudentDataInMap(idStudent);
+	}
 
 	// Student functions
 
@@ -115,26 +121,36 @@ public class SystemCollege {
 		} else
 			return false;
 	}
-	
+
 	public String getPerfilStudent() {
 		int idStudent = loginController.getStudentId();
 		return studentController.getStudentInformationsById(idStudent) + getLoginStudent();
 	}
 
 	public String getCourseEnrolled() {
-		
+
 		int idStudent = loginController.getStudentId();
 		int idCourse = studentController.getIdCourse(idStudent);
 		return courseController.getCourseInformations(idCourse);
 	}
-	
+
 	private String getLoginStudent() {
 		return loginController.getLoginStudent();
 	}
 
-	public void updateStudentOwnProfile(String name, String address, String nationality, String userName, String password) {
+	public void updateStudentOwnProfile(String name, String address, String nationality, String userName,
+			String password) {
 		int idStudent = loginController.getStudentId();
 		studentController.updateStudent(idStudent, name, address, nationality);
 		loginController.updateOwnLogin(userName, password);
+	}
+
+	public Map<String, String> getLoginOwnDataInMap() {
+		return loginController.getLoginDataInMap();
+	}
+
+	public Map<String, String> getStudentOwnDataInMap() {
+		int idStudent = loginController.getStudentId();
+		return getStudentDataInMap(idStudent);
 	}
 }

@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Student {
 
 	private int id;
@@ -70,5 +73,13 @@ public class Student {
 		return "ID: " + getId() + System.lineSeparator() + "NAME: " + getName() + System.lineSeparator() + "ADDRESS: "
 				+ getAddress() + System.lineSeparator() + "NATIONALITY: " + getNationality() + System.lineSeparator()
 				+ "COURSE ID: " + course + System.lineSeparator();
+	}
+
+	public Map<String, String> toMapString() {
+		Map<String, String> attributes = new HashMap<String, String>();
+		attributes.put("NAME", getName());
+		attributes.put("ADDRESS", getAddress());
+		attributes.put("NATIONALITY", getNationality());
+		return attributes;
 	}
 }
