@@ -75,8 +75,8 @@ public class SystemCollege {
 	}
 
 	public void deleteStudentById(int idStudent) {
-		studentController.deleteStudent(idStudent);
 		loginController.deleteLogin(idStudent);
+		studentController.deleteStudent(idStudent);
 	}
 	
 	public void deleteCourse(int idCourse) {
@@ -94,6 +94,14 @@ public class SystemCollege {
 
 	public String getStudentByName(String nameStudent) {
 		return studentController.getStudentByName(nameStudent);
+	}
+	
+	public boolean existCourse(int idCourse) {
+		return courseController.existeCourse(idCourse);
+	}
+
+	public boolean existStudent(int idStudent) {
+		return studentController.existStudent(idStudent);
 	}
 	
 
@@ -129,5 +137,4 @@ public class SystemCollege {
 		studentController.updateStudent(idStudent, name, address, nationality);
 		loginController.updateOwnLogin(userName, password);
 	}
-
 }

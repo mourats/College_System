@@ -197,4 +197,8 @@ public class StudentDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean existStudent(int idStudent) {
+		return getStudentById(idStudent) != null;
+	}
 }

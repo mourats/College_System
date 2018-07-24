@@ -42,4 +42,8 @@ public class CourseController {
 	public void deleteCourse(int idCourse) {
 		courseDao.deleteCourse(idCourse);
 	}
+
+	public boolean existeCourse(int idCourse) {
+		return !getCourseInformations(idCourse).equals("No course!");
+	}
 }

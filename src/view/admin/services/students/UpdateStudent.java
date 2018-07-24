@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
+import view.util.CheckView;
 
 public class UpdateStudent extends JDialog {
 
@@ -29,7 +30,7 @@ public class UpdateStudent extends JDialog {
 		SystemCollege system = SystemCollege.getInstanceSystem();
 		JOptionPane.showMessageDialog(null, system.getPerfilStudentById(idStudent), "Student",
 				JOptionPane.INFORMATION_MESSAGE);
-		
+
 		setTitle("Update a student");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(x + 150, y + 100, 400, 200);
@@ -72,10 +73,12 @@ public class UpdateStudent extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemCollege system = SystemCollege.getInstanceSystem();
-				// validar.
-				system.updateStudent(idStudent, name.getText(), address.getText(), nationality.getText());
-				dispose();
+				boolean canIGo = checkOfInput(name.getText(), address.getText(), nationality.getText());
+				if (canIGo) {
+					SystemCollege system = SystemCollege.getInstanceSystem();
+					system.updateStudent(idStudent, name.getText(), address.getText(), nationality.getText());
+					dispose();
+				}
 			}
 		});
 		okButton.setActionCommand("OK");
@@ -90,5 +93,26 @@ public class UpdateStudent extends JDialog {
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+	}
+
+	private boolean checkOfInput(String nameString, String addressString, String nationalityString) {
+
+		if (!CheckView.verifyName(nameString)) {
+			name.setText("");
+			address.setText("");
+			nationality.setText("");
+			return false;
+		} else if (!CheckView.verifyAddress(addressString)) {
+			name.setText("");
+			address.setText("");
+			nationality.setText("");
+			return false;
+		} else if (!CheckView.verifyNationality(nationalityString)) {
+			name.setText("");
+			address.setText("");
+			nationality.setText("");
+			return false;
+		} else
+			return true;
 	}
 }

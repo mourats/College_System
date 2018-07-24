@@ -58,8 +58,8 @@ public class ViewLogin extends JFrame {
 		lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		contentPane.add(lblTitle);
 
-		JLabel lblUser = new JLabel("User:");
-		lblUser.setBounds(140, 127, 46, 15);
+		JLabel lblUser = new JLabel("UserName:");
+		lblUser.setBounds(102, 129, 86, 15);
 		contentPane.add(lblUser);
 
 		user = new JTextField();

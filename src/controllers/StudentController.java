@@ -85,5 +85,9 @@ public class StudentController {
 	public int getIdCourse(int idStudent) {
 		return studentDao.getStudentById(idStudent).getCourse();
 	}
+
+	public boolean existStudent(int idStudent) {
+		return studentDao.existStudent(idStudent);
+	}
 	
 }

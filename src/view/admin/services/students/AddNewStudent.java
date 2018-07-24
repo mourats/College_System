@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
+import view.util.CheckView;
 
 public class AddNewStudent extends JDialog {
 
@@ -67,11 +68,13 @@ public class AddNewStudent extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemCollege system = SystemCollege.getInstanceSystem();
-				// validar.
-				String login = system.addNewStudent(name.getText(), address.getText(), nationality.getText());
-				JOptionPane.showMessageDialog(null, login, "Login Information", JOptionPane.INFORMATION_MESSAGE);
-				dispose();
+				boolean canIGo = checkOfInput(name.getText(), address.getText(), nationality.getText());
+				if (canIGo) {
+					SystemCollege system = SystemCollege.getInstanceSystem();
+					String login = system.addNewStudent(name.getText(), address.getText(), nationality.getText());
+					JOptionPane.showMessageDialog(null, login, "Login Information", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+				}
 			}
 		});
 		okButton.setActionCommand("OK");
@@ -87,5 +90,26 @@ public class AddNewStudent extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
+	}
+
+	private boolean checkOfInput(String nameString, String addressString, String nationalityString) {
+
+		if (!CheckView.verifyName(nameString)) {
+			name.setText("");
+			address.setText("");
+			nationality.setText("");
+			return false;
+		} else if (!CheckView.verifyAddress(addressString)) {
+			name.setText("");
+			address.setText("");
+			nationality.setText("");
+			return false;
+		} else if (!CheckView.verifyNationality(nationalityString)) {
+			name.setText("");
+			address.setText("");
+			nationality.setText("");
+			return false;
+		} else
+			return true;
 	}
 }
