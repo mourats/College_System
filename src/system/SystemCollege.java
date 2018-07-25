@@ -100,7 +100,7 @@ public class SystemCollege {
 	}
 
 	public boolean existCourse(int idCourse) {
-		return courseController.existeCourse(idCourse);
+		return courseController.existCourse(idCourse);
 	}
 
 	public boolean existStudent(int idStudent) {
