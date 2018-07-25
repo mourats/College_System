@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -112,11 +113,13 @@ public class UpdateYourOwnProfile extends JDialog {
 		buttonPane.add(cancelButton);
 		
 		SystemCollege system = SystemCollege.getInstanceSystem();
-		name.setText(system.getStudentOwnDataInMap().get("NAME"));
-		address.setText(system.getStudentOwnDataInMap().get("ADDRESS"));
-		nationality.setText(system.getStudentOwnDataInMap().get("NATIONALITY"));	
-		userName.setText(system.getLoginOwnDataInMap().get("LOGIN NAME"));
-		password.setText(system.getLoginOwnDataInMap().get("PASSWORD"));
+		Map<String, String> mapStudent = system.getStudentOwnDataInMap();
+		Map<String, String> mapLogin = system.getLoginOwnDataInMap();
+		name.setText(mapStudent.get("NAME"));
+		address.setText(mapStudent.get("ADDRESS"));
+		nationality.setText(mapStudent.get("NATIONALITY"));	
+		userName.setText(mapLogin.get("LOGIN NAME"));
+		password.setText(mapLogin.get("PASSWORD"));
 	}
 
 	private boolean checkOfInput(String nameString, String addressString, String nationalityString,
