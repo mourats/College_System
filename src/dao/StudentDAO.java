@@ -11,13 +11,27 @@ import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
 import entities.Student;
 
+/**
+ * Data Access Object of the Student object. This class responsible for interact
+ * to the table of student. CRUD interactions.
+ *
+ */
 public class StudentDAO {
 	private Connection connection;
 
+	/**
+	 * Constructor of StudentDAO get the connection with DataBase MySQL.
+	 */
 	public StudentDAO() {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
+	/**
+	 * Method responsible for entering a new student in the course student.
+	 * 
+	 * @param student
+	 *            Base object of the student.
+	 */
 	public void insert(Student student) {
 		try {
 			String sql = "INSERT INTO TB_STUDENT " + "(NAME,ADDRESS,NATIONALITY)" + " VALUES (?,?,?);";
@@ -35,6 +49,14 @@ public class StudentDAO {
 		}
 	}
 
+	/**
+	 * Private method responsible for setting up a student from a resultSet.
+	 * 
+	 * @param response
+	 *            One resultSet of the search.
+	 * @return Return a object student.
+	 * @throws SQLException
+	 */
 	private Student makeStudent(ResultSet response) throws SQLException {
 
 		Student student = new Student();
@@ -47,6 +69,12 @@ public class StudentDAO {
 		return student;
 	}
 
+	/**
+	 * Method that delete a student in tb student.
+	 * 
+	 * @param id
+	 *            Studentid that has been deleted.
+	 */
 	public void deleteStudent(int id) {
 
 		try {
@@ -62,6 +90,11 @@ public class StudentDAO {
 		}
 	}
 
+	/**
+	 * Method responsible for returning a list of all student in the student table.
+	 * 
+	 * @return Return a list of the student object.
+	 */
 	public List<Student> getAllStudents() {
 
 		List<Student> result = new ArrayList<Student>();
@@ -80,10 +113,18 @@ public class StudentDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return result;
 	}
 
+	/**
+	 * Method responsible for setting the new course that student has been.
+	 * registered.
+	 * 
+	 * @param idStudent
+	 *            Student ID will be the course resgistered.
+	 * @param idCourse
+	 *            ID of the course.
+	 */
 	public void setStudentInCourse(int idStudent, int idCourse) {
 
 		try {
@@ -98,6 +139,14 @@ public class StudentDAO {
 		}
 	}
 
+	/**
+	 * Method responsible for returning a list of all student are in a determined
+	 * course in the student table.
+	 * 
+	 * @param idCourse
+	 *            ID of the course.
+	 * @return Return a list of the student object.
+	 */
 	public List<Student> getStudentsInCourse(int idCourse) {
 
 		List<Student> result = new ArrayList<Student>();
@@ -122,6 +171,14 @@ public class StudentDAO {
 		return result;
 	}
 
+	/**
+	 * Method responsible for doing a search for a student by name.
+	 * 
+	 * @param nameStudent
+	 *            Name of the student, in string.
+	 * 
+	 * @return Return a object student. If this student does not exist, return null.
+	 */
 	public Student getStudentByName(String nameStudent) {
 
 		Student student = null;
@@ -144,6 +201,14 @@ public class StudentDAO {
 		return student;
 	}
 
+	/**
+	 * Method responsible for doing a search for a student by ID.
+	 * 
+	 * @param idStudent
+	 *            Name of the student, in string.
+	 * 
+	 * @return Return a object student. If this student does not exist, return null.
+	 */
 	public Student getStudentById(int idStudent) {
 		Student student = null;
 
@@ -165,6 +230,14 @@ public class StudentDAO {
 		return student;
 	}
 
+	/**
+	 * 
+	 * Method responsible for performing an update on an existing student in the
+	 * student table.
+	 * 
+	 * @param student
+	 *            Object student are the base of the update.
+	 */
 	public void updateStudent(Student student) {
 
 		try {
@@ -184,6 +257,14 @@ public class StudentDAO {
 		}
 	}
 
+	/**
+	 * 
+	 * Method responsible for removing the id from the course that is stored in a
+	 * student.This happens when a course is removed from the system;
+	 * 
+	 * @param idCourse
+	 *            Course id that has been deleted of the students.
+	 */
 	public void deleteCourseInStudents(int idCourse) {
 		try {
 			String sql = "UPDATE TB_STUDENT SET " + "ID_COURSE=NULL" + " WHERE ID_COURSE =" + idCourse + ";";
@@ -196,9 +277,5 @@ public class StudentDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public boolean existStudent(int idStudent) {
-		return getStudentById(idStudent) != null;
 	}
 }

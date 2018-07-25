@@ -88,7 +88,7 @@ public class StudentController {
 	}
 
 	public boolean existStudent(int idStudent) {
-		return studentDao.existStudent(idStudent);
+		return studentDao.getStudentById(idStudent) != null;
 	}
 
 	public Map<String, String> getStudentDataInMap(int idStudent) {

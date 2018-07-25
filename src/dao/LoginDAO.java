@@ -10,14 +10,31 @@ import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
 import entities.Login;
 
+/**
+ * Data Access Object of the Login object. This class responsible for interact to the
+ * tables of login (student login and admin login). CRUD interactions.
+ *
+ */
 public class LoginDAO {
 
 	private Connection connection;
 
+	/**
+	 * Constructor of LoginDAO get the connection with DataBase MySQL.
+	 */
 	public LoginDAO() {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
+	/**
+	 * Method responsible for logging in to an admin. If the logged in login exists
+	 * in the tb login admin table, it returns true, if not false.
+	 * 
+	 * @param login
+	 *            Object login will be verify.
+	 * 
+	 * @return Return a boolean with the result of the search.
+	 */
 	public boolean loginAdmin(Login login) {
 
 		try {
@@ -36,6 +53,15 @@ public class LoginDAO {
 		return false;
 	}
 
+	/**
+	 * Method responsible for logging in to a student. If the logged in login exists
+	 * in the tb login student table, it returns true, if not false.
+	 * 
+	 * @param login
+	 *            Object login will be verify.
+	 * 
+	 * @return Return a boolean with the result of the search.
+	 */
 	public boolean loginStudent(Login login) {
 
 		try {
@@ -56,6 +82,13 @@ public class LoginDAO {
 		return false;
 	}
 
+	/**
+	 * Method that inserts a new login in tb login student. This method is always
+	 * executed when a new student is enrolled in the system.
+	 * 
+	 * @param login
+	 *            Object will be inserted;
+	 */
 	public void insertLogin(Login login) {
 
 		try {
@@ -74,6 +107,13 @@ public class LoginDAO {
 		}
 	}
 
+	/**
+	 * Method that delete a login in tb login student. This method is always
+	 * executed when a student is deleted of the system.
+	 * 
+	 * @param id
+	 *            Student id that has been deleted
+	 */
 	public void deleteLogin(int id) {
 
 		try {
@@ -89,6 +129,12 @@ public class LoginDAO {
 		}
 	}
 
+	/**
+	 * Method that updates a student login to the system from the object login.
+	 * 
+	 * @param login
+	 *            Base object for the update
+	 */
 	public void updateLoginData(Login login) {
 		try {
 			String sql = "UPDATE TB_LOGIN_STUDENT SET " + "NAME_LOGIN=?, PASSWORD=?" + " WHERE ID ="
@@ -106,6 +152,15 @@ public class LoginDAO {
 		}
 	}
 
+	/**
+	 * Method that encrypts a password and returns what will be stored in the
+	 * database or compared to what exists in the database.
+	 * 
+	 * @param password
+	 *            Password will be encrypted.
+	 * 
+	 * @return Return the password encryted.
+	 */
 	private String encryptPassword(String password) {
 		try {
 
@@ -127,6 +182,10 @@ public class LoginDAO {
 		return password;
 	}
 
+	/**
+	 * Method responsible for verifying the default admin login exists. If it does
+	 * not exist, it calls the method responsible for creating it.
+	 */
 	public void initialLoginForAdmin() {
 		try {
 			PreparedStatement stmt = (PreparedStatement) this.connection
@@ -145,6 +204,10 @@ public class LoginDAO {
 		}
 	}
 
+	/**
+	 * Method responsible for entering the default admin login for the project. This
+	 * happens when the system is started for the first time.
+	 */
 	private void insertLoginAdmin() {
 		try {
 			String sql = "INSERT INTO TB_LOGIN_ADMIN " + "(NAME_LOGIN, PASSWORD)" + " VALUES (?,?);";
@@ -152,7 +215,7 @@ public class LoginDAO {
 			PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 			stmt.setString(1, "admin");
 			stmt.setString(2, encryptPassword("admin123"));
-			
+
 			stmt.execute();
 			stmt.close();
 
