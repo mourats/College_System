@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -88,11 +89,12 @@ public class UpdateStudent extends JDialog {
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
-		
+
 		SystemCollege system = SystemCollege.getInstanceSystem();
-		name.setText(system.getStudentDataInMap(idStudent).get("NAME"));
-		address.setText(system.getStudentDataInMap(idStudent).get("ADDRESS"));
-		nationality.setText(system.getStudentDataInMap(idStudent).get("NATIONALITY"));	
+		Map<String, String> mapStudent = system.getStudentDataInMap(idStudent);
+		name.setText(mapStudent.get("NAME"));
+		address.setText(mapStudent.get("ADDRESS"));
+		nationality.setText(mapStudent.get("NATIONALITY"));
 	}
 
 	private boolean checkOfInput(String nameString, String addressString, String nationalityString) {
