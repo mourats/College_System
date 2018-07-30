@@ -16,6 +16,12 @@ import system.SystemCollege;
 import view.main.ViewLogin;
 import view.student.UpdateYourOwnProfile;
 
+/**
+ * Student Dashboard containing all the functions defined for a student. These
+ * functions are activated from the button menu. instantiating and redirecting
+ * the necessary jframe when necessary.
+ *
+ */
 public class StudentDashboard extends JFrame {
 
 	private static final long serialVersionUID = -17358249654992114L;
@@ -25,6 +31,7 @@ public class StudentDashboard extends JFrame {
 
 	public StudentDashboard(int x, int y) {
 
+		// Acquiring the unique instance of the system
 		system = SystemCollege.getInstanceSystem();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +46,7 @@ public class StudentDashboard extends JFrame {
 		lblTitle.setBounds(172, 12, 107, 41);
 		contentPane.add(lblTitle);
 
+		//JButton for function of see the profile.
 		JButton btnViewProfile = new JButton("View My Profile");
 		btnViewProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -49,6 +57,7 @@ public class StudentDashboard extends JFrame {
 		btnViewProfile.setBounds(70, 86, 297, 25);
 		contentPane.add(btnViewProfile);
 
+		//JButton for function of change your own profile.
 		JButton btnChangeProfile = new JButton("Change My Profile Data");
 		btnChangeProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,6 +70,7 @@ public class StudentDashboard extends JFrame {
 		btnChangeProfile.setBounds(70, 123, 297, 25);
 		contentPane.add(btnChangeProfile);
 
+		//JButton for function of see what course i am assing.
 		JButton btnWhatCourse = new JButton("See What Course I'm in");
 		btnWhatCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,6 +81,9 @@ public class StudentDashboard extends JFrame {
 		btnWhatCourse.setBounds(70, 162, 297, 25);
 		contentPane.add(btnWhatCourse);
 
+		// JButton for function of logout.
+		// This button clear the actual instance of the system and create a Jframe
+		// initial of login.
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

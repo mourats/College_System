@@ -23,6 +23,12 @@ import view.admin.services.students.ChoiceAStudentToUpdate;
 import view.admin.services.students.SearchStudent;
 import view.main.ViewLogin;
 
+/**
+ * Admin Dashboard containing all the functions defined for an admin. These
+ * functions are activated from the button menu. instantiating and redirecting
+ * the necessary jframe when necessary.
+ *
+ */
 public class AdminDashboard extends JFrame {
 
 	private static final long serialVersionUID = 6244993357481124230L;
@@ -32,6 +38,7 @@ public class AdminDashboard extends JFrame {
 
 	public AdminDashboard(int x, int y) {
 
+		// Acquiring the unique instance of the system
 		system = SystemCollege.getInstanceSystem();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,11 +53,11 @@ public class AdminDashboard extends JFrame {
 		lblTitle.setBounds(141, 12, 171, 41);
 		contentPane.add(lblTitle);
 
+		// JButton for function of show all courses.
 		JButton btnAllCourses = new JButton("View All Courses");
 		btnAllCourses.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
 				JOptionPane.showMessageDialog(null, system.getAllCourses(), "Courses", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
@@ -69,10 +76,10 @@ public class AdminDashboard extends JFrame {
 		btnNewCourse.setBounds(67, 85, 324, 25);
 		contentPane.add(btnNewCourse);
 
+		// JButton for function of show all students.
 		JButton btnAllStudents = new JButton("View All Students");
 		btnAllStudents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				JOptionPane.showMessageDialog(null, system.getAllStudents(), "Students",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -80,6 +87,8 @@ public class AdminDashboard extends JFrame {
 		btnAllStudents.setBounds(67, 245, 324, 25);
 		contentPane.add(btnAllStudents);
 
+		// JButton for function of show all students in a course.
+		// This button creating a Jframe for choice a course and execute the function.
 		JButton btnViewAllStudentsCourse = new JButton("View all the Students in a Course");
 		btnViewAllStudentsCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +101,8 @@ public class AdminDashboard extends JFrame {
 		btnViewAllStudentsCourse.setBounds(67, 282, 324, 25);
 		contentPane.add(btnViewAllStudentsCourse);
 
+		// JButton for function of delete a student.
+		// This button creating a Jframe for choice a student and execute the deletion.
 		JButton btnNewButton = new JButton("Delete a Student");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,6 +115,9 @@ public class AdminDashboard extends JFrame {
 		btnNewButton.setBounds(67, 359, 324, 25);
 		contentPane.add(btnNewButton);
 
+		// JButton for function of create a student.
+		// This button creating a Jframe for entered the student informations and
+		// execute.
 		JButton btnAddANewStudent = new JButton("Add a New Student");
 		btnAddANewStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -116,6 +130,9 @@ public class AdminDashboard extends JFrame {
 		btnAddANewStudent.setBounds(67, 322, 324, 25);
 		contentPane.add(btnAddANewStudent);
 
+		// JButton for function of update a student.
+		// This button creating a Jframe for entered the student new informations and
+		// execute the update.
 		JButton btnUpdateStudent = new JButton("Update a Student");
 		btnUpdateStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,12 +140,13 @@ public class AdminDashboard extends JFrame {
 				int y = getY();
 				ChoiceAStudentToUpdate choiceStudentUpdate = new ChoiceAStudentToUpdate(x, y);
 				choiceStudentUpdate.setVisible(true);
-
 			}
 		});
 		btnUpdateStudent.setBounds(67, 396, 324, 25);
 		contentPane.add(btnUpdateStudent);
 
+		// JButton for function of assign a student into a course chosen.
+		// This button creating a Jframe for the choice of student and course.
 		JButton assignStudentCourse = new JButton("Assign Student into Course");
 		assignStudentCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,6 +159,8 @@ public class AdminDashboard extends JFrame {
 		assignStudentCourse.setBounds(67, 195, 324, 25);
 		contentPane.add(assignStudentCourse);
 
+		// JButton for function of delete a course.
+		// This button creating a Jframe for choice a course and execute the deletion.
 		JButton deleteCourse = new JButton("Delete a Course");
 		deleteCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,8 +173,10 @@ public class AdminDashboard extends JFrame {
 		deleteCourse.setBounds(67, 121, 324, 25);
 		contentPane.add(deleteCourse);
 
-		JButton btnSearchStudentBy = new JButton("Search Student By Name");
-		btnSearchStudentBy.addActionListener(new ActionListener() {
+		// JButton for function of search a student by name.
+		// This button creating a Jframe for inform the name of the student.
+		JButton btnSearchStudentByName = new JButton("Search Student By Name");
+		btnSearchStudentByName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int x = getX();
 				int y = getY();
@@ -162,9 +184,11 @@ public class AdminDashboard extends JFrame {
 				searchStudent.setVisible(true);
 			}
 		});
-		btnSearchStudentBy.setBounds(67, 433, 324, 25);
-		contentPane.add(btnSearchStudentBy);
-
+		btnSearchStudentByName.setBounds(67, 433, 324, 25);
+		contentPane.add(btnSearchStudentByName);
+		// JButton for function of logout.
+		// This button clear the actual instance of the system and create a Jframe
+		// initial of login.
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
