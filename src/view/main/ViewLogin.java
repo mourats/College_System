@@ -19,6 +19,11 @@ import view.admin.AdminDashboard;
 import view.student.StudentDashboard;
 import view.util.CheckView;
 
+/**
+ * Class system main! It contains the login view on the system, instantiating
+ * and making the appropriate Dashboard visible.
+ *
+ */
 public class ViewLogin extends JFrame {
 
 	private static final long serialVersionUID = -2987285739596576965L;
@@ -44,6 +49,7 @@ public class ViewLogin extends JFrame {
 
 	public ViewLogin(int x, int y) {
 
+		// Acquiring the unique instance of the system
 		system = SystemCollege.getInstanceSystem();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +67,7 @@ public class ViewLogin extends JFrame {
 		JLabel lblUser = new JLabel("UserName:");
 		lblUser.setBounds(102, 129, 86, 15);
 		contentPane.add(lblUser);
-
+		// TextField of the user name.
 		user = new JTextField();
 		user.setBounds(182, 127, 114, 19);
 		contentPane.add(user);
@@ -70,7 +76,7 @@ public class ViewLogin extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(104, 167, 75, 15);
 		contentPane.add(lblPassword);
-
+		// Password Field of the password.
 		password = new JPasswordField();
 		password.setBounds(182, 165, 114, 19);
 		contentPane.add(password);
@@ -82,6 +88,8 @@ public class ViewLogin extends JFrame {
 				String userString = user.getText().trim();
 				String passwordString = new String(password.getPassword()).trim();
 
+				// Boolean variable that defines whether past data is sufficient to proceed with
+				// the necessary actions.
 				boolean canIGo = checkOfInput(userString, passwordString);
 				if (canIGo) {
 					int x = getX();
@@ -99,7 +107,7 @@ public class ViewLogin extends JFrame {
 						dispose();
 						studentView.setVisible(true);
 
-					} else {
+					} else { // The entered login does not exist in the database.
 						JOptionPane.showMessageDialog(null, "Login Incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
 						user.setText("");
 						password.setText("");
@@ -111,6 +119,16 @@ public class ViewLogin extends JFrame {
 		contentPane.add(btnLogin);
 	}
 
+	/**
+	 * Private method that delegates the verification of input data and retries a
+	 * boolean defining whether it is possible to proceed
+	 * 
+	 * @param userString
+	 *            String of the userName.
+	 * @param passwordString
+	 *            String of the password.
+	 * @return Boolean with the result of the checks.
+	 */
 	private boolean checkOfInput(String userString, String passwordString) {
 
 		if (!CheckView.verifyUsername(userString)) {

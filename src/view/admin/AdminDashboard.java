@@ -30,13 +30,8 @@ public class AdminDashboard extends JFrame {
 	private JPanel contentPane;
 	private SystemCollege system;
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @param system
-	 */
 	public AdminDashboard(int x, int y) {
-		
+
 		system = SystemCollege.getInstanceSystem();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,7 +152,7 @@ public class AdminDashboard extends JFrame {
 		});
 		deleteCourse.setBounds(67, 121, 324, 25);
 		contentPane.add(deleteCourse);
-		
+
 		JButton btnSearchStudentBy = new JButton("Search Student By Name");
 		btnSearchStudentBy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +164,7 @@ public class AdminDashboard extends JFrame {
 		});
 		btnSearchStudentBy.setBounds(67, 433, 324, 25);
 		contentPane.add(btnSearchStudentBy);
-		
+
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,6 +181,6 @@ public class AdminDashboard extends JFrame {
 		JLabel label = new JLabel("___________________________________________________________");
 		label.setBounds(46, 218, 392, 15);
 		contentPane.add(label);
-		
+
 	}
 }

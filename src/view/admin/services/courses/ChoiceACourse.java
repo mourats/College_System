@@ -24,6 +24,7 @@ public class ChoiceACourse extends JDialog {
 	private JTextField idCourse;
 
 	public ChoiceACourse(int x, int y) {
+		setTitle("Student in a course");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(x + 150, y + 100, 250, 150);
 		getContentPane().setLayout(new BorderLayout());

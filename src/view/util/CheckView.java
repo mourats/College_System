@@ -5,6 +5,12 @@ import javax.swing.JOptionPane;
 
 import system.SystemCollege;
 
+/**
+ * Class responsible for containing static methods that check the input data,
+ * returning a boolean value with the result of the arrival. A dialog box opens
+ * if not, informing which error occurred.
+ *
+ */
 public class CheckView extends JFrame {
 
 	private static final long serialVersionUID = 2963640596907742784L;
@@ -32,7 +38,6 @@ public class CheckView extends JFrame {
 		} else
 			return true;
 	}
-	
 
 	public static boolean verifyAddress(String addressString) {
 		if (addressString.equals("")) {
@@ -41,7 +46,7 @@ public class CheckView extends JFrame {
 		} else
 			return true;
 	}
-	
+
 	public static boolean verifyNationality(String nationalityString) {
 		if (nationalityString.equals("")) {
 			JOptionPane.showMessageDialog(null, "Nationality is Empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -101,7 +106,8 @@ public class CheckView extends JFrame {
 		if (system.existStudent(Integer.parseInt(idStudentString)))
 			return true;
 		else {
-			JOptionPane.showMessageDialog(null, "Student does not exist in system!", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Student does not exist in system!", "Error",
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 	}
