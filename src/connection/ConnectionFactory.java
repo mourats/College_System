@@ -7,6 +7,7 @@ import java.sql.SQLException;
 /**
  * Class responsible for creating a connection to the database.
  *
+ * @author thiagomoura21
  */
 public class ConnectionFactory {
 	public Connection getConnection() {

@@ -14,6 +14,7 @@ import entities.Login;
  * Data Access Object of the Login object. This class responsible for interact to the
  * tables of login (student login and admin login). CRUD interactions.
  *
+ * @author thiagomoura21
  */
 public class LoginDAO {
 

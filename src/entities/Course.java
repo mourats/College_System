@@ -3,6 +3,8 @@ package entities;
 /**
  * Class Course responsible for contains attributes and methods that models a
  * course in the system.
+ * 
+ *  @author thiagomoura21
  */
 public class Course {
 	

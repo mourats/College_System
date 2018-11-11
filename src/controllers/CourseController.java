@@ -9,6 +9,7 @@ import entities.Course;
  * Class responsible for being the system course controller. It makes use of its
  * respective data access object to delegate the necessary actions.
  *
+ * @author thiagomoura21
  */
 public class CourseController {
 

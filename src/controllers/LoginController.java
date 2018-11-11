@@ -10,6 +10,7 @@ import entities.Login;
  * respective data access object to delegate the necessary actions, as well as
  * saves the login that is currently logged into the system.
  *
+ * @author thiagomoura21
  */
 public class LoginController {
 

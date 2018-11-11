@@ -15,7 +15,9 @@ import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
 import view.util.CheckView;
-
+/*
+ * @author thiagomoura21
+ */
 public class SearchStudent extends JDialog {
 
 	private static final long serialVersionUID = -307654772388652262L;

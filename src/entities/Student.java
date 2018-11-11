@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * Class Student responsible for contains attributes and methods that models a
  * student in the system.
+ * 
+ *  @author thiagomoura21
  */
 public class Student {
 

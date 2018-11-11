@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * Class Login responsible for contains attributes and methods that models a
  * login in the system.
+ * 
+ *  @author thiagomoura21
  */
 public class Login {
 

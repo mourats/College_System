@@ -14,7 +14,8 @@ import entities.Student;
 /**
  * Data Access Object of the Student object. This class responsible for interact
  * to the table of student. CRUD interactions.
- *
+ * 
+ * @author thiagomoura21
  */
 public class StudentDAO {
 	private Connection connection;

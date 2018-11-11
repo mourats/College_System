@@ -15,7 +15,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+/*
+ * @author thiagomoura21
+ */
 public class AddNewCourseView extends JDialog {
 
 	private static final long serialVersionUID = 8716967657439627552L;

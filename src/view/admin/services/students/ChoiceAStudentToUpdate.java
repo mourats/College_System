@@ -13,7 +13,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import view.util.CheckView;
-
+/*
+ * @author thiagomoura21
+ */
 public class ChoiceAStudentToUpdate extends JDialog {
 
 	private static final long serialVersionUID = -998004536796369380L;

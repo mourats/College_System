@@ -27,7 +27,8 @@ import view.main.ViewLogin;
  * Admin Dashboard containing all the functions defined for an admin. These
  * functions are activated from the button menu. instantiating and redirecting
  * the necessary jframe when necessary.
- *
+ * 
+ *  @author thiagomoura21
  */
 public class AdminDashboard extends JFrame {
 
@@ -202,7 +203,7 @@ public class AdminDashboard extends JFrame {
 		btnLogout.setBackground(new Color(240, 128, 128));
 		contentPane.add(btnLogout);
 
-		JLabel label = new JLabel("___________________________________________________________");
+		JLabel label = new JLabel("___________________________________________________");
 		label.setBounds(46, 218, 392, 15);
 		contentPane.add(label);
 

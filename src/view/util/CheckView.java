@@ -10,6 +10,7 @@ import system.SystemCollege;
  * returning a boolean value with the result of the arrival. A dialog box opens
  * if not, informing which error occurred.
  *
+ * @author thiagomoura21
  */
 public class CheckView extends JFrame {
 

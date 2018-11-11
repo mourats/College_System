@@ -23,6 +23,7 @@ import view.util.CheckView;
  * Class system main! It contains the login view on the system, instantiating
  * and making the appropriate Dashboard visible.
  *
+ * @author thiagomoura21
  */
 public class ViewLogin extends JFrame {
 

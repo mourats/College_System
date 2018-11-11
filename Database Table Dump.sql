@@ -1,4 +1,4 @@
----------------
+----------------
 ---CREATE SYSTEM
 
 CREATE DATABASE COLLEGE_SYSTEM;

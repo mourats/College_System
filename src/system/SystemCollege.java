@@ -12,6 +12,8 @@ import controllers.StudentController;
  * controllers, it delegates actions to them by covering what is defined in the
  * methods. It uses the singleton pattern. because of this there is only one
  * instance of the SystemCollege throughout the system execution.
+ * 
+ * @author thiagomoura21
  *
  */
 public class SystemCollege {

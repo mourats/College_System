@@ -14,7 +14,9 @@ import javax.swing.border.EmptyBorder;
 
 import system.SystemCollege;
 import view.util.CheckView;
-
+/*
+ * @author thiagomoura21
+ */
 public class ChoiceAStudentToDelete extends JDialog {
 
 	private static final long serialVersionUID = 1151526387460873680L;

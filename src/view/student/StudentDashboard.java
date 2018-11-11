@@ -21,6 +21,7 @@ import view.student.UpdateYourOwnProfile;
  * functions are activated from the button menu. instantiating and redirecting
  * the necessary jframe when necessary.
  *
+ * @author thiagomoura21
  */
 public class StudentDashboard extends JFrame {
 

@@ -10,6 +10,7 @@ import entities.Student;
  * Class responsible for being the system student controller. It makes use of
  * its respective data access object to delegate the necessary actions.
  *
+ * @author thiagomoura21
  */
 public class StudentController {
 

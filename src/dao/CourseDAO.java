@@ -15,6 +15,7 @@ import entities.Course;
  * Data Access Object of the Course object. This class responsible for interact
  * to the table of course. CRUD interactions.
  *
+ * @author thiagomoura21
  */
 public class CourseDAO {
 
