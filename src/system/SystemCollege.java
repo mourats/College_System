@@ -202,8 +202,8 @@ public class SystemCollege {
 	 *            Coruse ID will be deleted.
 	 */
 	public void deleteCourse(int idCourse) {
-		courseController.deleteCourse(idCourse);
 		studentController.deleteCourseInStudents(idCourse);
+		courseController.deleteCourse(idCourse);
 	}
 
 	/**
